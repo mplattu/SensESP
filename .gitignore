@@ -6,3 +6,5 @@
 .vscode/launch.json
 .vscode/*
 .history
+
+local_secrets.ini

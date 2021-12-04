@@ -1,3 +1,9 @@
+build_salon_environment:
+	pio run --environment salon_environment
+
+upload_salon_environment:
+	pio run --environment salon_environment -t upload
+
 build_random_engine_port:
 	pio run --environment random_engine_port
 

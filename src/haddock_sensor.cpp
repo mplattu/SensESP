@@ -1,6 +1,10 @@
 #ifndef SENSOR_MAIN
 #define SENSOR_MAIN
 
+#ifdef SENSOR_TYPE_BMP280
+#include "sensors/bmp280.h"
+#endif
+
 #ifdef SENSOR_TYPE_RANDOM
 #include "sensors/random_sensor.h"
 #endif
@@ -30,6 +34,21 @@ ReactESP app([]() {
     //->set_led_pin(13);
 //    ->set_led_blinker(true, 1000, 2500, 4000);
     ->get_app();
+
+#ifdef SENSOR_SALON_ENVIRONMENT
+  auto* bmp280 = new BMP280(0x76);
+  const uint read_delay = 1000;            // once per second
+  const uint pressure_read_delay = 60000;  // once per minute
+
+  auto* bmp_temperature =
+    new BMP280Value(bmp280, BMP280Value::temperature, read_delay, "/Inside/Temperature");
+  bmp_temperature->connect_to(
+    new SKOutputNumber("environment.inside.temperature"));
+
+  auto* bmp_pressure =
+    new BMP280Value(bmp280, BMP280Value::pressure, pressure_read_delay, "/Inside/Pressure");
+  bmp_pressure->connect_to(new SKOutputNumber("environment.inside.pressure"));
+#endif
 
 #ifdef SENSOR_RANDOM_ENGINE_PORT
   const char* sk_path = "propulsion.port.revolutions";

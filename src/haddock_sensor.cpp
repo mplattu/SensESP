@@ -3,6 +3,7 @@
 
 #ifdef SENSOR_TYPE_BMP280
 #include "sensors/bmp280.h"
+#include "transforms/linear.h"
 #endif
 
 #ifdef SENSOR_TYPE_RANDOM
@@ -42,12 +43,15 @@ ReactESP app([]() {
 
   auto* bmp_temperature =
     new BMP280Value(bmp280, BMP280Value::temperature, read_delay, "/Inside/Temperature");
-  bmp_temperature->connect_to(
-    new SKOutputNumber("environment.inside.temperature"));
+  bmp_temperature
+    ->connect_to(new Linear(1, -2.0, "/Inside/TemperatureTransform"))
+    ->connect_to(new SKOutputNumber("environment.inside.temperature"));
 
   auto* bmp_pressure =
     new BMP280Value(bmp280, BMP280Value::pressure, pressure_read_delay, "/Inside/Pressure");
-  bmp_pressure->connect_to(new SKOutputNumber("environment.inside.pressure"));
+  bmp_pressure
+    ->connect_to(new Linear(1, 0, "/Inside/PressureTransform"))
+    ->connect_to(new SKOutputNumber("environment.inside.pressure"));
 #endif
 
 #ifdef SENSOR_RANDOM_ENGINE_PORT

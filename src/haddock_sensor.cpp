@@ -2,6 +2,7 @@
 #define SENSOR_MAIN
 
 #ifdef SENSOR_TYPE_BMP280
+#include "sensors/deepsleeptimer.h"
 #include "sensors/bmp280.h"
 #include "transforms/linear.h"
 #endif
@@ -37,6 +38,10 @@ ReactESP app([]() {
     ->get_app();
 
 #ifdef SENSOR_SALON_ENVIRONMENT
+  auto* deepsleeptimer = new DeepSleepTimer(300,60, "/Inside/DeepSleepTimer");
+  deepsleeptimer
+    ->connect_to(new SKOutputNumber("environment.inside.timebeforesleep"));
+
   auto* bmp280 = new BMP280(0x76);
   const uint read_delay = 1000;            // once per second
   const uint pressure_read_delay = 60000;  // once per minute

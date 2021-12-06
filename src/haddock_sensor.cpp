@@ -10,11 +10,6 @@
 #ifdef HADDOCK_SENSOR_TYPE_CURRENT
 #include "sensors/ads1x15.h"
 #include "transforms/linear.h"
-#include "sensors/random_sensor.h"
-#endif
-
-#ifdef SENSOR_TYPE_RANDOM
-#include "sensors/random_sensor.h"
 #endif
 
 #include <Arduino.h>
@@ -81,44 +76,6 @@ ReactESP app([]() {
     ->connect_to(new Linear(256.0 / 32768.0, 0, ""))
     ->connect_to(new Linear(0.57, 0, "/Current/LinearTransform"))
     ->connect_to(new SKOutputNumber("electrical.solar.flybridge.current", "/Current/Sk", metadata));
-#endif
-
-#ifdef SENSOR_RANDOM_ENGINE_PORT
-  const char* sk_path = "propulsion.port.revolutions";
-  const char* analog_in_config_path = "/random_sensor";
-
-  SKMetadata* metadata = new SKMetadata();
-  metadata->units_ = "Hz";
-  metadata->description_ = "Propeller Revolutions Port Side";
-  metadata->display_name_ = "Propeller Port Side";
-  metadata->short_name_ = "Propeller Port";
-
-  uint min_limit = 0;
-  uint max_limit = 4000;
-  uint read_delay = 500;
-
-  auto* random_sensor = new RandomSensor(min_limit, max_limit, read_delay, analog_in_config_path);
-
-  random_sensor->connect_to(new SKOutputNumber(sk_path, analog_in_config_path, metadata));
-#endif
-
-#ifdef SENSOR_RANDOM_ENGINE_STB
-  const char* sk_path = "propulsion.stb.revolutions";
-  const char* analog_in_config_path = "/random_sensor";
-
-  SKMetadata* metadata = new SKMetadata();
-  metadata->units_ = "Hz";
-  metadata->description_ = "Propeller Revolutions Starboard Side";
-  metadata->display_name_ = "Propeller Stb Side";
-  metadata->short_name_ = "Propeller Stb";
-
-  uint min_limit = 0;
-  uint max_limit = 4000;
-  uint read_delay = 500;
-
-  auto* random_sensor = new RandomSensor(min_limit, max_limit, read_delay, analog_in_config_path);
-
-  random_sensor->connect_to(new SKOutputNumber(sk_path, analog_in_config_path, metadata));
 #endif
 
   // Start the SensESP application running

@@ -25,3 +25,51 @@ Configuration
 References
 
  * https://www.instructables.com/Library-for-BMP280/
+
+### `current_solar`
+
+Equipment
+
+ * Wemos D1 ESP8266
+ * ADS1115 AD converter
+ * Shunt 40A 75mV
+
+Wiring
+
+```
+Wemos D1  ADS1115
+--------  -------
+      5v  VCC
+       G  GND
+       G  ADDR
+      D1  SCL
+      D2  SDA
+      A0  shunt
+      A1  shunt
+```
+
+Compilation
+
+ * `make upload_current_solar`
+
+Configuration
+
+ * Adjust current transform line parameters at `Current/LinearTransform`
+ * The theoretical multipliers are:
+   * 1.0 for 100mV shunt
+   * 0,57 for 75mV shunt (default)
+   * 2.0 for 50mV shunt
+
+References
+
+ * Converting raw measurements to volts: https://forums.adafruit.com/viewtopic.php?t=73330
+   ```
+                                                    ADS1015  ADS1115
+                                                    -------  -------
+   GAIN_TWOTHIRDS  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV
+   GAIN_ONE        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
+   GAIN_TWO        // 2x gain   +/- 2.048V  1 bit = 1mV      0.0625mV
+   GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
+   GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
+   GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
+   ```

@@ -7,6 +7,12 @@
 #include "transforms/linear.h"
 #endif
 
+#ifdef HADDOCK_SENSOR_TYPE_CURRENT
+#include "sensors/ads1x15.h"
+#include "transforms/linear.h"
+#include "sensors/random_sensor.h"
+#endif
+
 #ifdef SENSOR_TYPE_RANDOM
 #include "sensors/random_sensor.h"
 #endif
@@ -57,6 +63,24 @@ ReactESP app([]() {
   bmp_pressure
     ->connect_to(new Linear(1, 0, "/Inside/PressureTransform"))
     ->connect_to(new SKOutputNumber("environment.inside.pressure"));
+#endif
+
+#ifdef HADDOCK_SENSOR_CURRENT_SOLAR
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "A";
+  metadata->description_ = "Solar Panel Charging Current";
+  metadata->display_name_ = "Current (Solar)";
+  metadata->short_name_ = "Current (Solar)";
+
+  adsGain_t gain = GAIN_SIXTEEN;
+  ADS1115* ads1115 = new ADS1115(0x48, gain);
+
+  auto* current =
+    new ADS1x15RawValue (ads1115, channels_0_1, 500, "/Current/Measurement");
+  current
+    ->connect_to(new Linear(256.0 / 32768.0, 0, ""))
+    ->connect_to(new Linear(0.57, 0, "/Current/LinearTransform"))
+    ->connect_to(new SKOutputNumber("electrical.solar.flybridge.current", "/Current/Sk", metadata));
 #endif
 
 #ifdef SENSOR_RANDOM_ENGINE_PORT

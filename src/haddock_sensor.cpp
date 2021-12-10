@@ -39,7 +39,7 @@ ReactESP app([]() {
     ->get_app();
 
 #ifdef SENSOR_SALON_ENVIRONMENT
-  auto* deepsleeptimer = new DeepSleepTimer(300,60, "/Inside/DeepSleepTimer");
+  auto* deepsleeptimer = new DeepSleepTimer(0, 600, "/Inside/DeepSleepTimer");
   deepsleeptimer
     ->connect_to(new SKOutputNumber("environment.inside.timebeforesleep"));
 

@@ -10,6 +10,12 @@ build_current_solar:
 upload_current_solar:
 	pio run --environment current_solar -t upload
 
+build_voltage_charge:
+	pio run --environment voltage_charge
+
+upload_voltage_charge:
+	pio run --environment voltage_charge -t upload
+
 monitor:
 	pio device monitor
 

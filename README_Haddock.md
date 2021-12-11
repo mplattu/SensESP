@@ -86,3 +86,26 @@ References
    GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
    GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
    ```
+
+### `tank_fuel`
+
+Equipment
+
+  * Wemos D1 ESP8266
+  * Standard 0-180 ohm tank level sensor (ECMS, Wema)
+    * 0 ohm = empty
+    * 180 ohm = full
+
+Wiring
+
+  * FIXME
+
+Compilation
+
+  * `make upload_tank_fuel`
+
+Configuration
+
+  * The raw values can be read from `/Tank/LinearTransformBeforeMap`
+  * The mapping from raw min-max range can be configured at `/Tank/Map`
+  * The final reading can be adjusted at `/Tank/LinearTransform`

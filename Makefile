@@ -16,6 +16,12 @@ build_voltage_charge:
 upload_voltage_charge:
 	pio run --environment voltage_charge -t upload
 
+build_tank_fuel:
+	pio run --environment tank_fuel
+
+upload_tank_fuel:
+	pio run --environment tank_fuel -t upload
+
 monitor:
 	pio device monitor
 

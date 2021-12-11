@@ -15,7 +15,12 @@
 #ifdef HADDOCK_SENSOR_TYPE_VOLTAGE
 #include "sensors/ads1115.h"
 #include "transforms/linear.h"
-//#include "transforms/voltage_multiplier.h"
+#endif
+
+#ifdef HADDOCK_SENSOR_TYPE_TANK
+#include "sensors/analog_input.h"
+#include "transforms/linear.h"
+#include "transforms/map_ratio.h"
 #endif
 
 #include <Arduino.h>
@@ -133,6 +138,15 @@ ReactESP app([]() {
   voltage_3
     ->connect_to(new Linear(1, 0, "/Voltage_Solar/LinearTransform"))
     ->connect_to(new SKOutputNumber("electrical.solar.flybridge.voltage", "", metadata_3));
+#endif
+
+#ifdef HADDOCK_SENSOR_TANK_FUEL
+  auto* input = new AnalogInput();
+  input
+    ->connect_to(new Linear(1, 0, "/Tank/LinearTransformBeforeMap"))
+    ->connect_to(new MapRatio(327, 1020, "/Tank/Map"))
+    ->connect_to(new Linear(1, 0, "/Tank/LinearTransform"))
+    ->connect_to(new SKOutputNumber("tanks.fuel.0.currentLevel", "/Tank/Sk"));
 #endif
 
   // Start the SensESP application running

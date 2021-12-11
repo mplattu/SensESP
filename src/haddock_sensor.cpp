@@ -33,10 +33,6 @@ ReactESP app([]() {
   SetupSerialDebug(115200);
 #endif
 
-#ifdef HADDOCK_SENSOR_VOLTAGE_CHARGE
-#define HOSTNAME "VoltageCharge"
-#endif
-
   // Create the global SensESPApp() object.
   SensESPAppBuilder builder;
 

@@ -128,7 +128,8 @@ Equipment
 
 Wiring
 
-  * FIXME
+  * The tank level sensor is connected between ESP8266 `A0` and `5V`
+  * Some references suggest using a pullup resistor but this was not applied
 
 Compilation
 

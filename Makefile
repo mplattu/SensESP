@@ -22,6 +22,12 @@ build_tank_fuel:
 upload_tank_fuel:
 	pio run --environment tank_fuel -t upload
 
+build_tank_black:
+	pio run --environment tank_black
+
+upload_tank_black:
+	pio run --environment tank_black -t upload
+
 monitor:
 	pio device monitor
 

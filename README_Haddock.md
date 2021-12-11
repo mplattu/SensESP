@@ -140,3 +140,12 @@ Configuration
   * The raw values can be read from `/Tank/LinearTransformBeforeMap`
   * The mapping from raw min-max range can be configured at `/Tank/Map`
   * The final reading can be adjusted at `/Tank/LinearTransform`
+
+### `tank_black`
+
+Black water tank sensor equals with `tank_fuel` except the waste level gauge
+used (Wema) gives 240 ohms when empty and 30 ohms when full.
+
+Compilation
+
+  * `make upload_tank_black`

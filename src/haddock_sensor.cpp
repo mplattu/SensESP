@@ -156,6 +156,21 @@ ReactESP app([]() {
     ->connect_to(new SKOutputNumber("tanks.fuel.0.currentLevel", "/Tank/Sk", metadata));
 #endif
 
+#ifdef HADDOCK_SENSOR_TANK_BLACK
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "ratio";
+  metadata->description_ = "Waste (Black Water) Tank Level";
+  metadata->display_name_ = "Waste Tank Level";
+  metadata->short_name_ = "Waste Level";
+
+  auto* input = new AnalogInput(A0, 1000, "/Tank/Input");
+  input
+    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransformBeforeMap"))
+    ->connect_to(new MapRatio(1024.0, 260.0, "/Tank/Map"))
+    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransform"))
+    ->connect_to(new SKOutputNumber("tanks.blackWater.0.currentLevel", "/Tank/Sk", metadata));
+#endif
+
   // Start the SensESP application running
   sensesp_app->enable();
 });

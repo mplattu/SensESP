@@ -16,6 +16,7 @@ private:
  float multiplier;
  uint read_delay;
  ADS1115_WE adc;
+ bool adc_initialized;
  virtual void get_configuration(JsonObject& doc) override;
  virtual bool set_configuration(const JsonObject& config) override;
  virtual String get_config_schema() override;

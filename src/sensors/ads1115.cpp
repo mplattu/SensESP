@@ -11,11 +11,10 @@ ADS1115::ADS1115(uint pin, float voltage_divider_multiplier, uint read_delay, St
   this->adc = ADS1115_WE();
 
   Wire.begin();
+  this->adc_initialized = true;
   if (! this->adc.init()) {
-    while(1) {
-      debugE("Could not init ADS1115");
-      delay(1000);
-    }
+    debugE("Could not init ADS1115");
+    this->adc_initialized = false;
   }
 
   this->adc.setVoltageRange_mV(ADS1115_RANGE_4096);
@@ -25,6 +24,11 @@ ADS1115::ADS1115(uint pin, float voltage_divider_multiplier, uint read_delay, St
 }
 
 void ADS1115::update() {
+  if (! this->adc_initialized) {
+    debugE("Cannot read voltage as ADS1115 has not been initialised");
+    this->emit(-1);
+  }
+
   switch (this->pin) {
     case 0:
       this->adc.setCompareChannels(ADS1115_COMP_0_GND);

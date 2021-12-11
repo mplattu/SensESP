@@ -10,7 +10,7 @@ const ParamInfo MapRatio::param_info_[] = {
 // Function implementing the linear transform
 
 float (*MapRatio::function_)(float, float, float) =
-    [](float input, float input_min, float input_max) { return (float) map(input, input_min, input_max, 0, 1); };
+    [](float input, float input_min, float input_max) { return (float) map(input, input_min, input_max, 0, 100) / 100; };
 
 // Constructor definition
 

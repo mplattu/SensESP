@@ -87,6 +87,36 @@ References
    GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
    ```
 
+### `voltage_charge`
+
+This sensor reads voltages from each ADS1115 inputs. Taking care of four individual
+sensor wirings appears to be too much for ESP8266 as opening the configuration URL
+resulted timeouts.
+
+To tackle this issue a new sensor `sensors/ads1115` was written. It combines
+communication to ADS1115 and scaling the raw reading thus requiring less
+RAM from the MCU.
+
+Equipment
+
+ * Wemos D1 ESP8266
+ * ADS1115 AD converter
+
+Wiring
+
+ * Each ADS1115 input is connected to voltage divider, where
+   * R1 = 82 kOhm
+   * R2 = 15 kOhm
+ * The voltage divider scales input range 0-30V to 0-4.6V
+
+Compilation
+
+ * `make upload_voltage_charge`
+
+Configuration
+
+ * Each input has its `/[inputname]/LinearTransform` to adjust scaled voltage reading
+
 ### `tank_fuel`
 
 Equipment

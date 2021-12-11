@@ -41,12 +41,13 @@ ReactESP app([]() {
   // Create the global SensESPApp() object.
   SensESPAppBuilder builder;
 
-  sensesp_app = builder.set_standard_sensors(UPTIME)
+  SystemStatusLed* systemStatusLed = new SystemStatusLed(LED_BUILTIN);
+
+  sensesp_app = builder.set_standard_sensors()
     ->set_hostname(HOSTNAME)
     ->set_sk_server(SERVER_ADDRESS, SERVER_PORT) // Don't specify server address or port
     ->set_wifi(WIFI_NAME, WIFI_PASS)
-    //->set_led_pin(13);
-//    ->set_led_blinker(true, 1000, 2500, 4000);
+    ->set_system_status_led(systemStatusLed)
     ->get_app();
 
 #ifdef SENSOR_SALON_ENVIRONMENT
@@ -141,12 +142,18 @@ ReactESP app([]() {
 #endif
 
 #ifdef HADDOCK_SENSOR_TANK_FUEL
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "ratio";
+  metadata->description_ = "Fuel Tank Level";
+  metadata->display_name_ = "Fuel Tank Level";
+  metadata->short_name_ = "Fuel Level";
+
   auto* input = new AnalogInput();
   input
-    ->connect_to(new Linear(1, 0, "/Tank/LinearTransformBeforeMap"))
-    ->connect_to(new MapRatio(327, 1020, "/Tank/Map"))
-    ->connect_to(new Linear(1, 0, "/Tank/LinearTransform"))
-    ->connect_to(new SKOutputNumber("tanks.fuel.0.currentLevel", "/Tank/Sk"));
+    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransformBeforeMap"))
+    ->connect_to(new MapRatio(1020.0, 327.0, "/Tank/Map"))
+    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransform"))
+    ->connect_to(new SKOutputNumber("tanks.fuel.0.currentLevel", "/Tank/Sk", metadata));
 #endif
 
   // Start the SensESP application running

@@ -41,7 +41,7 @@ static const char SCHEMA[] PROGMEM = R"###({
     "type": "object",
     "properties": {
         "time_before_sleep": { "title": "Time before sleep", "type": "number", "description": "Time in seconds after sensor is going to deep sleep" },
-        "time_before_wakeup": { "title": "TIme before wakeup", "type": "number", "description": "Time in seconds after sensor is goit go wake up" }
+        "time_before_wakeup": { "title": "Time before wakeup", "type": "number", "description": "Time in seconds after sensor is goit go wake up" }
     }
   })###";
 

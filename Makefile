@@ -28,6 +28,12 @@ build_tank_black:
 upload_tank_black:
 	pio run --environment tank_black -t upload
 
+build_tank_fresh:
+	pio run --environment tank_fresh
+
+upload_tank_fresh:
+	pio run --environment tank_fresh -t upload
+
 monitor:
 	pio device monitor
 

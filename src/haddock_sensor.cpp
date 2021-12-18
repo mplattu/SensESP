@@ -43,7 +43,11 @@ ReactESP app([]() {
 
   SystemStatusLed* systemStatusLed = new SystemStatusLed(LED_BUILTIN);
 
+#ifdef HADDOCK_LOW_PERFORMANCE_SENSOR
+  sensesp_app = builder.set_standard_sensors(IP_ADDRESS)
+#else
   sensesp_app = builder.set_standard_sensors()
+#endif
     ->set_hostname(HOSTNAME)
     ->set_sk_server(SERVER_ADDRESS, SERVER_PORT) // Don't specify server address or port
     ->set_wifi(WIFI_NAME, WIFI_PASS)
@@ -55,21 +59,33 @@ ReactESP app([]() {
   deepsleeptimer
     ->connect_to(new SKOutputNumber("environment.inside.timebeforesleep"));
 
+  SKMetadata* metadata_temperature = new SKMetadata();
+  metadata_temperature->units_ = "K";
+  metadata_temperature->description_ = "Salon Temperature";
+  metadata_temperature->display_name_ = "Salon Temperature";
+  metadata_temperature->short_name_ = "Salon Temp";
+
   auto* bmp280 = new BMP280(0x76);
-  const uint read_delay = 1000;            // once per second
-  const uint pressure_read_delay = 60000;  // once per minute
+  const uint read_delay = 10000;            // every 10 seconds
+  const uint pressure_read_delay = 20000;   // every 20 seconds
 
   auto* bmp_temperature =
     new BMP280Value(bmp280, BMP280Value::temperature, read_delay, "/Inside/Temperature");
   bmp_temperature
     ->connect_to(new Linear(1, -2.0, "/Inside/TemperatureTransform"))
-    ->connect_to(new SKOutputNumber("environment.inside.temperature"));
+    ->connect_to(new SKOutputNumber("environment.inside.temperature", "", metadata_temperature));
+
+  SKMetadata* metadata_pressure = new SKMetadata();
+  metadata_pressure->units_ = "Pa";
+  metadata_pressure->description_ = "Salon Pressure";
+  metadata_pressure->display_name_ = "Salon Pressure";
+  metadata_pressure->short_name_ = "Salon Pressure";
 
   auto* bmp_pressure =
     new BMP280Value(bmp280, BMP280Value::pressure, pressure_read_delay, "/Inside/Pressure");
   bmp_pressure
     ->connect_to(new Linear(1, 0, "/Inside/PressureTransform"))
-    ->connect_to(new SKOutputNumber("environment.inside.pressure"));
+    ->connect_to(new SKOutputNumber("environment.inside.pressure", "", metadata_pressure));
 #endif
 
 #ifdef HADDOCK_SENSOR_CURRENT_SOLAR

@@ -117,35 +117,30 @@ Configuration
 
  * Each input has its `/[inputname]/LinearTransform` to adjust scaled voltage reading
 
-### `tank_fuel`
+### `tank_fuel`, `tank_fresh` and `tank_black`
 
 Equipment
 
   * Wemos D1 ESP8266
-  * Standard 0-180 ohm tank level sensor (ECMS, Wema)
-    * 0 ohm = empty
-    * 180 ohm = full
+  * Fuel and fresh tank gauge: Standard 0-180 ohm tank level sensor (ECMS, Wema)
+    * 0 ohms = empty
+    * 180 ohms = full
+  * Black water gauge: Wema 240-30 ohm tank level sensor
+    * 240 ohm = empty
+    * 30 ohms = full
 
 Wiring
 
-  * The tank level sensor is connected between ESP8266 `A0` and `5V`
-  * Some references suggest using a pullup resistor but this was not applied
+![See images/sensor_tank.png](images/sensor_tank.png)
 
 Compilation
 
   * `make upload_tank_fuel`
+  * `make upload_tank_fresh`
+  * `make upload_tank_black`
 
 Configuration
 
-  * The raw values can be read from `/Tank/LinearTransformBeforeMap`
-  * The mapping from raw min-max range can be configured at `/Tank/Map`
-  * The final reading can be adjusted at `/Tank/LinearTransform`
-
-### `tank_black`
-
-Black water tank sensor equals with `tank_fuel` except the waste level gauge
-used (Wema) gives 240 ohms when empty and 30 ohms when full.
-
-Compilation
-
-  * `make upload_tank_black`
+  * The raw values can be read from `/Tank/LinearTransformBeforeCurve`
+  * The mapping from raw min-max range can be configured at `/Tank/CurveInterpolator`
+  * By default, the curve interpolator model has values for 0, 25, 50 75 and 100%

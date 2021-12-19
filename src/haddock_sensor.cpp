@@ -20,7 +20,7 @@
 #ifdef HADDOCK_SENSOR_TYPE_TANK
 #include "sensors/analog_input.h"
 #include "transforms/linear.h"
-#include "transforms/map_ratio.h"
+#include "transforms/curveinterpolator.h"
 #endif
 
 #include <Arduino.h>
@@ -28,6 +28,51 @@
 #include "sensesp_app.h"
 #include "sensesp_app_builder.h"
 #include "signalk/signalk_output.h"
+
+#ifdef HADDOCK_SENSOR_TANK_FUEL
+class CurveInterpolatorTankFuel : public CurveInterpolator {
+
+public:
+  CurveInterpolatorTankFuel(String config_path = "") : CurveInterpolator(NULL, config_path) {
+    clear_samples();
+    add_sample(CurveInterpolator::Sample(728, 1.0));
+    add_sample(CurveInterpolator::Sample(621, 0.75));
+    add_sample(CurveInterpolator::Sample(538, 0.5));
+    add_sample(CurveInterpolator::Sample(377, 0.25));
+    add_sample(CurveInterpolator::Sample(50, 0.0));
+  }
+};
+#endif
+
+#ifdef HADDOCK_SENSOR_TANK_BLACK
+class CurveInterpolatorTankBlack : public CurveInterpolator {
+
+public:
+  CurveInterpolatorTankBlack(String config_path = "") : CurveInterpolator(NULL, config_path) {
+    clear_samples();
+    add_sample(CurveInterpolator::Sample(728, 1.0));
+    add_sample(CurveInterpolator::Sample(621, 0.75));
+    add_sample(CurveInterpolator::Sample(538, 0.5));
+    add_sample(CurveInterpolator::Sample(377, 0.25));
+    add_sample(CurveInterpolator::Sample(50, 0.0));
+  }
+};
+#endif
+
+#ifdef HADDOCK_SENSOR_TANK_FRESH
+class CurveInterpolatorTankFresh : public CurveInterpolator {
+
+public:
+  CurveInterpolatorTankFresh(String config_path = "") : CurveInterpolator(NULL, config_path) {
+    clear_samples();
+    add_sample(CurveInterpolator::Sample(728, 1.0));
+    add_sample(CurveInterpolator::Sample(621, 0.75));
+    add_sample(CurveInterpolator::Sample(538, 0.5));
+    add_sample(CurveInterpolator::Sample(377, 0.25));
+    add_sample(CurveInterpolator::Sample(50, 0.0));
+  }
+};
+#endif
 
 // SensESP builds upon the ReactESP framework. Every ReactESP application
 // defines an "app" object vs defining a "main()" method.
@@ -166,9 +211,8 @@ ReactESP app([]() {
 
   auto* input = new AnalogInput();
   input
-    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransformBeforeMap"))
-    ->connect_to(new MapRatio(1020.0, 327.0, "/Tank/Map"))
-    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransform"))
+    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransformBeforeCurve"))
+    ->connect_to(new CurveInterpolatorTankFuel("/Tank/CurveInterpolator"))
     ->connect_to(new SKOutputNumber("tanks.fuel.0.currentLevel", "/Tank/Sk", metadata));
 #endif
 
@@ -181,9 +225,8 @@ ReactESP app([]() {
 
   auto* input = new AnalogInput(A0, 1000, "/Tank/Input");
   input
-    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransformBeforeMap"))
-    ->connect_to(new MapRatio(1024.0, 260.0, "/Tank/Map"))
-    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransform"))
+    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransformBeforeCurve"))
+    ->connect_to(new CurveInterpolatorTankBlack("/Tank/CurveInterpolator"))
     ->connect_to(new SKOutputNumber("tanks.blackWater.0.currentLevel", "/Tank/Sk", metadata));
 #endif
 
@@ -196,9 +239,8 @@ ReactESP app([]() {
 
   auto* input = new AnalogInput(A0, 1000, "/Tank/Input");
   input
-    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransformBeforeMap"))
-    ->connect_to(new MapRatio(1024.0, 327.0, "/Tank/Map"))
-    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransform"))
+    ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransformBeforeCurve"))
+    ->connect_to(new CurveInterpolatorTankFresh("/Tank/CurveInterpolator"))
     ->connect_to(new SKOutputNumber("tanks.freshWater.0.currentLevel", "/Tank/Sk", metadata));
 #endif
 

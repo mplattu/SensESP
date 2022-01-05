@@ -13,7 +13,7 @@
 #endif
 
 #ifdef HADDOCK_SENSOR_TYPE_VOLTAGE
-#include "sensors/ads1115.h"
+#include "sensors/ina226.h"
 #include "transforms/linear.h"
 #endif
 
@@ -50,11 +50,11 @@ class CurveInterpolatorTankBlack : public CurveInterpolator {
 public:
   CurveInterpolatorTankBlack(String config_path = "") : CurveInterpolator(NULL, config_path) {
     clear_samples();
-    add_sample(CurveInterpolator::Sample(728, 1.0));
-    add_sample(CurveInterpolator::Sample(621, 0.75));
-    add_sample(CurveInterpolator::Sample(538, 0.5));
-    add_sample(CurveInterpolator::Sample(377, 0.25));
-    add_sample(CurveInterpolator::Sample(50, 0.0));
+    add_sample(CurveInterpolator::Sample(204, 1.0));
+    add_sample(CurveInterpolator::Sample(318, 0.75));
+    add_sample(CurveInterpolator::Sample(431, 0.5));
+    add_sample(CurveInterpolator::Sample(544, 0.25));
+    add_sample(CurveInterpolator::Sample(658, 0.0));
   }
 };
 #endif
@@ -151,55 +151,19 @@ ReactESP app([]() {
     ->connect_to(new SKOutputNumber("electrical.solar.flybridge.current", "/Current/Sk", metadata));
 #endif
 
-#ifdef HADDOCK_SENSOR_VOLTAGE_CHARGE
-  uint vdiv_r1 = 82000;
-  uint vdiv_r2 = 15000;
-  float vdiv_multiplier = ((float)(vdiv_r1) + (float)(vdiv_r2)) / (float)(vdiv_r2);
-  uint read_delay = 10000;
+#ifdef HADDOCK_SENSOR_VOLTAGE_SOLAR
+  auto* ina226 = new INA226x(0x40);
 
-  SKMetadata* metadata_0 = new SKMetadata();
-  metadata_0->units_ = "V";
-  metadata_0->description_ = "Battery 1 Voltage";
-  metadata_0->display_name_ = "Voltage (Batt 1)";
-  metadata_0->short_name_ = "Volt (Batt 1)";
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "V";
+  metadata->description_ = "Solar Charge Voltage";
+  metadata->display_name_ = "Voltage (Solar)";
+  metadata->short_name_ = "Volt (Solar)";
 
-  auto* voltage_0 = new ADS1115(0, vdiv_multiplier, read_delay);
-  voltage_0
-    ->connect_to(new Linear(1, 0, "/Voltage_Batt_1/LinearTransform"))
-    ->connect_to(new SKOutputNumber("electrical.batteries.battery1.voltage", "", metadata_0));
-
-  SKMetadata* metadata_1 = new SKMetadata();
-  metadata_1->units_ = "V";
-  metadata_1->description_ = "Battery 2 Voltage";
-  metadata_1->display_name_ = "Voltage (Batt 2)";
-  metadata_1->short_name_ = "Volt (Batt 2)";
-
-  auto* voltage_1 = new ADS1115(1, vdiv_multiplier, read_delay);
-  voltage_1
-    ->connect_to(new Linear(1, 0, "/Voltage_Batt_2/LinearTransform"))
-    ->connect_to(new SKOutputNumber("electrical.batteries.battery2.voltage", "", metadata_1));
-
-  SKMetadata* metadata_2 = new SKMetadata();
-  metadata_2->units_ = "V";
-  metadata_2->description_ = "Battery 3 Voltage";
-  metadata_2->display_name_ = "Voltage (Batt 3)";
-  metadata_2->short_name_ = "Volt (Batt 3)";
-
-  auto* voltage_2 = new ADS1115(2, vdiv_multiplier, read_delay);
-  voltage_2
-    ->connect_to(new Linear(1, 0, "/Voltage_Batt_3/LinearTransform"))
-    ->connect_to(new SKOutputNumber("electrical.batteries.battery3.voltage", "", metadata_2));
-
-  SKMetadata* metadata_3 = new SKMetadata();
-  metadata_3->units_ = "V";
-  metadata_3->description_ = "Solar Charge Voltage";
-  metadata_3->display_name_ = "Voltage (Solar)";
-  metadata_3->short_name_ = "Volt (Solar)";
-
-  auto* voltage_3 = new ADS1115(3, vdiv_multiplier, read_delay);
-  voltage_3
+  auto* voltage = new INA226Value(ina226, 1000, "/Voltage_Solar/Measurement");
+  voltage
     ->connect_to(new Linear(1, 0, "/Voltage_Solar/LinearTransform"))
-    ->connect_to(new SKOutputNumber("electrical.solar.flybridge.voltage", "", metadata_3));
+    ->connect_to(new SKOutputNumber("electrical.solar.flybridge.voltage", "", metadata));
 #endif
 
 #ifdef HADDOCK_SENSOR_TANK_FUEL

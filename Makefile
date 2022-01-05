@@ -10,11 +10,11 @@ build_current_solar:
 upload_current_solar:
 	pio run --environment current_solar -t upload
 
-build_voltage_charge:
-	pio run --environment voltage_charge
+build_voltage_solar:
+	pio run --environment voltage_solar
 
-upload_voltage_charge:
-	pio run --environment voltage_charge -t upload
+upload_voltage_solar:
+	pio run --environment voltage_solar -t upload
 
 build_tank_fuel:
 	pio run --environment tank_fuel

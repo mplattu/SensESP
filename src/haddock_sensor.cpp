@@ -23,6 +23,11 @@
 #include "transforms/curveinterpolator.h"
 #endif
 
+#ifdef HADDOCK_SENSOR_TYPE_REVS
+#include "sensors/digital_input.h"
+#include "transforms/frequency.h"
+#endif
+
 #include <Arduino.h>
 
 #include "sensesp_app.h"
@@ -206,6 +211,21 @@ ReactESP app([]() {
     ->connect_to(new Linear(1.0, 0.0, "/Tank/LinearTransformBeforeCurve"))
     ->connect_to(new CurveInterpolatorTankFresh("/Tank/CurveInterpolator"))
     ->connect_to(new SKOutputNumber("tanks.freshWater.0.currentLevel", "/Tank/Sk", metadata));
+#endif
+
+#ifdef HADDOCK_SENSOR_REVS_MOTOR_STB
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "rpm";
+  metadata->description_ = "Motor Revolutions (Starboard)";
+  metadata->display_name_ = "Motor Revs (Starboard)";
+  metadata->short_name_ = "Motor Revs (Stb)";
+
+  int hz_to_rpms = 60.0;
+
+  auto* sensor = new DigitalInputCounter(D5, INPUT, RISING, 2000, "/Freq/Input");
+  sensor
+    ->connect_to(new Frequency(hz_to_rpms, "/Freq/Frequency")) // Hall sensor gives one signal on each round = 1 Hz
+    ->connect_to(new SKOutputNumber("propulsion.stb.revolutions", "/Freq/Sk", metadata));
 #endif
 
   // Start the SensESP application running

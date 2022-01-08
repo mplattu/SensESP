@@ -144,3 +144,26 @@ Configuration
   * The raw values can be read from `/Tank/LinearTransformBeforeCurve`
   * The mapping from raw min-max range can be configured at `/Tank/CurveInterpolator`
   * By default, the curve interpolator model has values for 0, 25, 50 75 and 100%
+
+### `revs_motor_stb`
+
+Measures motor revolutions. The unit is RPMs instead of standard SI unit Hz since
+SignalK server Instrument panel did not offer a dedicated Hz-to-RPM gauge.
+
+Equipment
+
+  * Wemos D1 ESP8266
+  * Hall Sensor A3144
+  * Resistor 10 kOhm
+
+Wiring
+
+![See images/sensor_revs.png](images/sensor_revs.png)
+
+Compilation
+
+ * `make revs_motor_stb`
+
+Configuration
+
+ * `/Freq/Frequency` has default value of 60 as the sensor reports RPMs and hot Hz

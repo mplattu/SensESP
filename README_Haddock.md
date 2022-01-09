@@ -39,6 +39,43 @@ References
 
  * https://www.instructables.com/Library-for-BMP280/
 
+### `electricity_solar`
+
+Electricity sensor measures voltage using INA226 (0-32V) and current using ADS1115 and 75mV shunt.
+
+Equipment
+
+ * Wemos D1 ESP8266
+ * INA226
+ * ADS1115 AD converter
+ * Shunt 40A 75mV
+
+Wiring
+
+```
+Wemos D1  ADS1115  INA226
+--------  -------  ------
+      5v  VCC      VCC
+       G  GND      GND
+       G  ADDR
+      D1  SCL      SCL
+      D2  SDA      SDA
+      A0  shunt
+      A1  shunt
+```
+
+![See images/sensor_electricity.png](images/sensor_electricity.png)
+
+N.B.! Use INA229 instead of INA219 for 24V system.
+
+Compilation
+
+ * `make upload_electricity_solar`
+
+Configuration
+
+ * Both voltage and current sensor has linear transform
+
 ### `current_solar`
 
 Equipment

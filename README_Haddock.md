@@ -75,35 +75,6 @@ Compilation
 Configuration
 
  * Both voltage and current sensor has linear transform
-
-### `current_solar`
-
-Equipment
-
- * Wemos D1 ESP8266
- * ADS1115 AD converter
- * Shunt 40A 75mV
-
-Wiring
-
-```
-Wemos D1  ADS1115
---------  -------
-      5v  VCC
-       G  GND
-       G  ADDR
-      D1  SCL
-      D2  SDA
-      A0  shunt
-      A1  shunt
-```
-
-Compilation
-
- * `make upload_current_solar`
-
-Configuration
-
  * Adjust current transform line parameters at `Current/LinearTransform`
  * The theoretical multipliers are:
    * 1.0 for 100mV shunt
@@ -112,47 +83,17 @@ Configuration
 
 References
 
- * Converting raw measurements to volts: https://forums.adafruit.com/viewtopic.php?t=73330
-   ```
-                                                    ADS1015  ADS1115
-                                                    -------  -------
-   GAIN_TWOTHIRDS  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV
-   GAIN_ONE        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
-   GAIN_TWO        // 2x gain   +/- 2.048V  1 bit = 1mV      0.0625mV
-   GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
-   GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
-   GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
-   ```
-
-### `voltage_charge`
-
-This sensor reads voltages from each ADS1115 inputs. Taking care of four individual
-sensor wirings appears to be too much for ESP8266 as opening the configuration URL
-resulted timeouts.
-
-To tackle this issue a new sensor `sensors/ads1115` was written. It combines
-communication to ADS1115 and scaling the raw reading thus requiring less
-RAM from the MCU.
-
-Equipment
-
- * Wemos D1 ESP8266
- * ADS1115 AD converter
-
-Wiring
-
- * Each ADS1115 input is connected to voltage divider, where
-   * R1 = 82 kOhm
-   * R2 = 15 kOhm
- * The voltage divider scales input range 0-30V to 0-4.6V
-
-Compilation
-
- * `make upload_voltage_charge`
-
-Configuration
-
- * Each input has its `/[inputname]/LinearTransform` to adjust scaled voltage reading
+* Converting raw measurements to volts: https://forums.adafruit.com/viewtopic.php?t=73330
+  ```
+                                                   ADS1015  ADS1115
+                                                   -------  -------
+  GAIN_TWOTHIRDS  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV
+  GAIN_ONE        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
+  GAIN_TWO        // 2x gain   +/- 2.048V  1 bit = 1mV      0.0625mV
+  GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
+  GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
+  GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
+  ```
 
 ### `tank_fuel`, `tank_fresh` and `tank_black`
 

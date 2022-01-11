@@ -28,11 +28,17 @@ build_tank_fresh:
 upload_tank_fresh:
 	pio run --environment tank_fresh -t upload
 
-build_revs_motor_stb:
-	pio run --environment revs_motor_stb
+build_revs_prop_stb:
+	pio run --environment revs_prop_stb
 
-upload_revs_motor_stb:
-	pio run --environment revs_motor_stb -t upload
+upload_revs_prop_stb:
+	pio run --environment revs_prop_stb -t upload
+
+build_revs_prop_port:
+	pio run --environment revs_prop_port
+
+upload_revs_prop_port:
+	pio run --environment revs_prop_port -t upload
 
 monitor:
 	pio device monitor

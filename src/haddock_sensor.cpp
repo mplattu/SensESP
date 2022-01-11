@@ -207,19 +207,34 @@ ReactESP app([]() {
     ->connect_to(new SKOutputNumber("tanks.freshWater.0.currentLevel", "/Tank/Sk", metadata));
 #endif
 
-#ifdef HADDOCK_SENSOR_REVS_MOTOR_STB
+#ifdef HADDOCK_SENSOR_REVS_PROP_STB
   SKMetadata* metadata = new SKMetadata();
   metadata->units_ = "rpm";
-  metadata->description_ = "Motor Revolutions (Starboard)";
-  metadata->display_name_ = "Motor Revs (Starboard)";
-  metadata->short_name_ = "Motor Revs (Stb)";
+  metadata->description_ = "Propulsion Revolutions (Starboard)";
+  metadata->display_name_ = "Prop Revs (Starboard)";
+  metadata->short_name_ = "Prop Revs (Stb)";
 
   int hz_to_rpms = 60.0;
 
-  auto* sensor = new DigitalInputCounter(D5, INPUT, RISING, 2000, "/Freq/Input");
+  auto* sensor = new DigitalInputCounter(D5, INPUT, RISING, 500, "/Freq/Input");
   sensor
     ->connect_to(new Frequency(hz_to_rpms, "/Freq/Frequency")) // Hall sensor gives one signal on each round = 1 Hz
     ->connect_to(new SKOutputNumber("propulsion.stb.revolutions", "/Freq/Sk", metadata));
+#endif
+
+#ifdef HADDOCK_SENSOR_REVS_PROP_PORT
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "rpm";
+  metadata->description_ = "Propulsion Revolutions (Port)";
+  metadata->display_name_ = "Prop Revs (Port)";
+  metadata->short_name_ = "Prop Revs (Port)";
+
+  int hz_to_rpms = 60.0;
+
+  auto* sensor = new DigitalInputCounter(D5, INPUT, RISING, 500, "/Freq/Input");
+  sensor
+    ->connect_to(new Frequency(hz_to_rpms, "/Freq/Frequency")) // Hall sensor gives one signal on each round = 1 Hz
+    ->connect_to(new SKOutputNumber("propulsion.port.revolutions", "/Freq/Sk", metadata));
 #endif
 
   // Start the SensESP application running

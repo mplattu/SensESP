@@ -123,9 +123,9 @@ Configuration
   * The mapping from raw min-max range can be configured at `/Tank/CurveInterpolator`
   * By default, the curve interpolator model has values for 0, 25, 50 75 and 100%
 
-### `revs_motor_stb`
+### `revs_prop_stb`, `revs_prop_port`
 
-Measures motor revolutions. The unit is RPMs instead of standard SI unit Hz since
+Measures propulsion (propellor axel) revolutions. The unit is RPMs instead of standard SI unit Hz since
 SignalK server Instrument panel did not offer a dedicated Hz-to-RPM gauge.
 
 Equipment
@@ -140,7 +140,8 @@ Wiring
 
 Compilation
 
- * `make revs_motor_stb`
+ * `make upload_revs_prop_stb`
+ * `make upload_revs_prop_port`
 
 Configuration
 

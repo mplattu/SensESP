@@ -51,11 +51,11 @@ class CurveInterpolatorTankBlack : public CurveInterpolator {
 public:
   CurveInterpolatorTankBlack(String config_path = "") : CurveInterpolator(NULL, config_path) {
     clear_samples();
-    add_sample(CurveInterpolator::Sample(204, 1.0));
-    add_sample(CurveInterpolator::Sample(318, 0.75));
-    add_sample(CurveInterpolator::Sample(431, 0.5));
-    add_sample(CurveInterpolator::Sample(544, 0.25));
-    add_sample(CurveInterpolator::Sample(658, 0.0));
+    add_sample(CurveInterpolator::Sample(257, 1.0));  // 30 ohm
+    add_sample(CurveInterpolator::Sample(378, 0.75)); // 52 ohm
+    add_sample(CurveInterpolator::Sample(431, 0.5));  // 105 ohm
+    add_sample(CurveInterpolator::Sample(666, 0.25)); // 158 ohm
+    add_sample(CurveInterpolator::Sample(770, 0.0));  // 240 ohm
   }
 };
 #endif

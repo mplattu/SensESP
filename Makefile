@@ -4,6 +4,12 @@ build_salon_environment:
 upload_salon_environment:
 	pio run --environment salon_environment -t upload
 
+build_current_consumption:
+	pio run --environment current_consumption
+
+upload_current_consumption:
+	pio run --environment current_consumption -t upload
+
 build_electricity_solar:
 	pio run --environment electricity_solar
 

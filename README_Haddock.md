@@ -39,6 +39,40 @@ References
 
  * https://www.instructables.com/Library-for-BMP280/
 
+### `current_consumption`
+
+Equipment
+
+ * Wemos D1 ESP8266
+ * ADS1115 AD converter
+ * Shunt 40A 75mV
+
+Wiring
+
+```
+Wemos D1  ADS1115
+--------  -------
+     5v  VCC
+      G  GND
+      G  ADDR
+     D1  SCL
+     D2  SDA
+     A0  shunt
+     A1  shunt
+```
+
+Compilation
+
+ * `make upload_current_solar`
+
+Configuration
+
+ * Adjust current transform line parameters at `Current/LinearTransform`
+ * The theoretical multipliers are:
+  * 1.0 for 100mV shunt
+  * 0,57 for 75mV shunt (default)
+  * 2.0 for 50mV shunt
+
 ### `electricity_solar`
 
 Electricity sensor measures voltage using INA226 (0-32V) and current using ADS1115 and 75mV shunt.

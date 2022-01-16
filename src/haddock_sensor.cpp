@@ -7,6 +7,11 @@
 #include "transforms/linear.h"
 #endif
 
+#ifdef HADDOCK_SENSOR_TYPE_CURRENT
+#include "sensors/ads1x15.h"
+#include "transforms/linear.h"
+#endif
+
 #ifdef HADDOCK_SENSOR_TYPE_ELECTRICITY
 #include "sensors/ads1x15.h"
 #include "sensors/ina226.h"
@@ -132,6 +137,24 @@ ReactESP app([]() {
   bmp_pressure
     ->connect_to(new Linear(1, 0, "/Inside/PressureTransform"))
     ->connect_to(new SKOutputNumber("environment.inside.pressure", "", metadata_pressure));
+#endif
+
+#ifdef HADDOCK_SENSOR_CURRENT_CONSUMPTION
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "A";
+  metadata->description_ = "24V DC Consumption Current";
+  metadata->display_name_ = "Current (Consumption)";
+  metadata->short_name_ = "Current (Cons)";
+
+  adsGain_t gain = GAIN_SIXTEEN;
+  ADS1115* ads1115 = new ADS1115(0x48, gain);
+
+  auto* current =
+    new ADS1x15RawValue (ads1115, channels_0_1, 500, "/Current/Measurement");
+  current
+    ->connect_to(new Linear(256.0 / 32768.0, 0, ""))
+    ->connect_to(new Linear(0.57, 0, "/Current/LinearTransform"))
+    ->connect_to(new SKOutputNumber("electrical.dc.current", "/Current/Sk", metadata));
 #endif
 
 #ifdef HADDOCK_SENSOR_ELECTRICITY_SOLAR

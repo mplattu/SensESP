@@ -39,6 +39,30 @@ References
 
  * https://www.instructables.com/Library-for-BMP280/
 
+### `temp_engineroom`
+
+Equipment
+ * Wemos D1 ESP8266
+ * MAX31855
+
+Wiring
+```
+Wemos D1  MAX31855
+     3v3  VCC
+       G  GND
+      D5  D0
+      D6  CS
+      D7  CLK
+```
+
+Compilation
+
+ * `make upload_temp_engineroom`
+
+Configuration
+
+ * Adjust temperature value at `Temp/LinearTransform`
+
 ### `current_consumption`
 
 Equipment

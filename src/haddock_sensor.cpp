@@ -7,6 +7,11 @@
 #include "transforms/linear.h"
 #endif
 
+#ifdef SENSOR_TYPE_MAX31855
+#include "sensors/max31855_thermocouple.h"
+#include "transforms/linear.h"
+#endif
+
 #ifdef HADDOCK_SENSOR_TYPE_CURRENT
 #include "sensors/ads1x15.h"
 #include "transforms/linear.h"
@@ -137,6 +142,19 @@ ReactESP app([]() {
   bmp_pressure
     ->connect_to(new Linear(1, 0, "/Inside/PressureTransform"))
     ->connect_to(new SKOutputNumber("environment.inside.pressure", "", metadata_pressure));
+#endif
+
+#ifdef SENSOR_TEMP_ENGINEROOM
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "K";
+  metadata->description_ = "Engime Room Temperature";
+  metadata->display_name_ = "Engine Room Temperature";
+  metadata->short_name_ = "Engine Room Temp";
+
+  auto* sensor = new MAX31855Thermocouple(1000);
+  sensor
+    ->connect_to(new Linear(1, 0, "/Temp/LinearTransform"))
+    ->connect_to(new SKOutputNumber("environment.engineroom.temperature", "", metadata));
 #endif
 
 #ifdef HADDOCK_SENSOR_CURRENT_CONSUMPTION

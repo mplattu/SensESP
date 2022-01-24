@@ -39,7 +39,7 @@ References
 
  * https://www.instructables.com/Library-for-BMP280/
 
-### `temp_engineroom`
+### `temp_engineroom`, `temp_batt1`, `temp_batt2`, `temp_batt3`
 
 Equipment
  * Wemos D1 ESP8266
@@ -58,6 +58,7 @@ Wemos D1  MAX31855
 Compilation
 
  * `make upload_temp_engineroom`
+ * `make upload_temp_batt1` ... `3`
 
 Configuration
 

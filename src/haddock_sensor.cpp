@@ -157,6 +157,45 @@ ReactESP app([]() {
     ->connect_to(new SKOutputNumber("environment.engineroom.temperature", "", metadata));
 #endif
 
+#ifdef SENSOR_TEMP_BATT1
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "K";
+  metadata->description_ = "Battery 1 Temperature";
+  metadata->display_name_ = "Battery 1 Temperature";
+  metadata->short_name_ = "Batt 1 Temp";
+
+  auto* sensor = new MAX31855Thermocouple(1000);
+  sensor
+    ->connect_to(new Linear(1, 0, "/Temp/LinearTransform"))
+    ->connect_to(new SKOutputNumber("electrical.batteries.battery1.temperature", "", metadata));
+#endif
+
+#ifdef SENSOR_TEMP_BATT2
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "K";
+  metadata->description_ = "Battery 2 Temperature";
+  metadata->display_name_ = "Battery 2 Temperature";
+  metadata->short_name_ = "Batt 2 Temp";
+
+  auto* sensor = new MAX31855Thermocouple(1000);
+  sensor
+    ->connect_to(new Linear(1, 0, "/Temp/LinearTransform"))
+    ->connect_to(new SKOutputNumber("electrical.batteries.battery2.temperature", "", metadata));
+#endif
+
+#ifdef SENSOR_TEMP_BATT3
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "K";
+  metadata->description_ = "Battery 3 Temperature";
+  metadata->display_name_ = "Battery 3 Temperature";
+  metadata->short_name_ = "Batt 3 Temp";
+
+  auto* sensor = new MAX31855Thermocouple(1000);
+  sensor
+    ->connect_to(new Linear(1, 0, "/Temp/LinearTransform"))
+    ->connect_to(new SKOutputNumber("electrical.batteries.battery3.temperature", "", metadata));
+#endif
+
 #ifdef HADDOCK_SENSOR_CURRENT_CONSUMPTION
   SKMetadata* metadata = new SKMetadata();
   metadata->units_ = "A";

@@ -10,6 +10,24 @@ build_temp_engineroom:
 upload_temp_engineroom:
 	pio run --environment temp_engineroom -t upload
 
+build_temp_batt1:
+	pio run --environment temp_batt1
+
+upload_temp_batt1:
+	pio run --environment temp_batt1 -t upload
+
+build_temp_batt2:
+	pio run --environment temp_batt2
+
+upload_temp_batt2:
+	pio run --environment temp_batt2 -t upload
+
+build_temp_batt3:
+	pio run --environment temp_batt3
+
+upload_temp_batt3:
+	pio run --environment temp_batt3 -t upload
+
 build_current_consumption:
 	pio run --environment current_consumption
 

@@ -63,7 +63,7 @@ public:
     clear_samples();
     add_sample(CurveInterpolator::Sample(257, 1.0));  // 30 ohm
     add_sample(CurveInterpolator::Sample(378, 0.75)); // 52 ohm
-    add_sample(CurveInterpolator::Sample(431, 0.5));  // 105 ohm
+    add_sample(CurveInterpolator::Sample(556, 0.5));  // 105 ohm
     add_sample(CurveInterpolator::Sample(666, 0.25)); // 158 ohm
     add_sample(CurveInterpolator::Sample(770, 0.0));  // 240 ohm
   }
@@ -210,7 +210,7 @@ ReactESP app([]() {
     new ADS1x15RawValue (ads1115, channels_0_1, 500, "/Current/Measurement");
   current
     ->connect_to(new Linear(256.0 / 32768.0, 0, ""))
-    ->connect_to(new Linear(0.57, 0, "/Current/LinearTransform"))
+    ->connect_to(new Linear(-0.53, 0, "/Current/LinearTransform"))
     ->connect_to(new SKOutputNumber("electrical.dc.current", "/Current/Sk", metadata));
 #endif
 

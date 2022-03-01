@@ -88,7 +88,7 @@ Wemos D1  ADS1115
 
 Compilation
 
- * `make upload_current_solar`
+ * `make upload_current_consumption`
 
 Configuration
 
@@ -98,7 +98,7 @@ Configuration
   * 0,57 for 75mV shunt (default)
   * 2.0 for 50mV shunt
 
-### `electricity_solar`
+### `electricity_solar`, `electricity_batt1`, `electricity_batt2`, `electricity_batt3`
 
 Electricity sensor measures voltage using INA226 (0-32V) and current using ADS1115 and 75mV shunt.
 
@@ -130,6 +130,9 @@ N.B.! Use INA229 instead of INA219 for 24V system.
 Compilation
 
  * `make upload_electricity_solar`
+ * `make upload_electricity_batt1`
+ * `make upload_electricity_batt2`
+ * `make upload_electricity_batt3`
 
 Configuration
 

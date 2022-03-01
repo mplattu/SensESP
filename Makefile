@@ -40,6 +40,24 @@ build_electricity_solar:
 upload_electricity_solar:
 	pio run --environment electricity_solar -t upload
 
+build_electricity_batt1:
+	pio run --environment electricity_batt1
+
+upload_electricity_batt1:
+	pio run --environment electricity_batt1 -t upload
+
+build_electricity_batt2:
+	pio run --environment electricity_batt2
+
+upload_electricity_batt2:
+	pio run --environment electricity_batt2 -t upload
+
+build_electricity_batt3:
+	pio run --environment electricity_batt3
+
+upload_electricity_batt3:
+	pio run --environment electricity_batt3 -t upload
+
 build_tank_fuel:
 	pio run --environment tank_fuel
 

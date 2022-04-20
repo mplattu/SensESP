@@ -12,6 +12,11 @@
 #include "transforms/linear.h"
 #endif
 
+#ifdef SENSOR_TYPE_DS18B20
+#include "sensors/onewire_temperature.h"
+#include "transforms/linear.h"
+#endif
+
 #ifdef HADDOCK_SENSOR_TYPE_CURRENT
 #include "sensors/ads1x15.h"
 #include "transforms/linear.h"
@@ -151,7 +156,10 @@ ReactESP app([]() {
   metadata->display_name_ = "Engine Room Temperature";
   metadata->short_name_ = "Engine Room Temp";
 
-  auto* sensor = new MAX31855Thermocouple(1000);
+  DallasTemperatureSensors* dts = new DallasTemperatureSensors(D7);
+  uint read_delay = 1000;
+
+  auto* sensor = new OneWireTemperature(dts, read_delay, "/Temp/oneWire");
   sensor
     ->connect_to(new Linear(1, 0, "/Temp/LinearTransform"))
     ->connect_to(new SKOutputNumber("environment.engineroom.temperature", "", metadata));
@@ -164,7 +172,10 @@ ReactESP app([]() {
   metadata->display_name_ = "Battery 1 Temperature";
   metadata->short_name_ = "Batt 1 Temp";
 
-  auto* sensor = new MAX31855Thermocouple(1000);
+  DallasTemperatureSensors* dts = new DallasTemperatureSensors(D7);
+  uint read_delay = 1000;
+
+  auto* sensor = new OneWireTemperature(dts, read_delay, "/Temp/oneWire");
   sensor
     ->connect_to(new Linear(1, 0, "/Temp/LinearTransform"))
     ->connect_to(new SKOutputNumber("electrical.batteries.battery1.temperature", "", metadata));
@@ -177,7 +188,10 @@ ReactESP app([]() {
   metadata->display_name_ = "Battery 2 Temperature";
   metadata->short_name_ = "Batt 2 Temp";
 
-  auto* sensor = new MAX31855Thermocouple(1000);
+  DallasTemperatureSensors* dts = new DallasTemperatureSensors(D7);
+  uint read_delay = 1000;
+
+  auto* sensor = new OneWireTemperature(dts, read_delay, "/Temp/oneWire");
   sensor
     ->connect_to(new Linear(1, 0, "/Temp/LinearTransform"))
     ->connect_to(new SKOutputNumber("electrical.batteries.battery2.temperature", "", metadata));
@@ -190,7 +204,10 @@ ReactESP app([]() {
   metadata->display_name_ = "Battery 3 Temperature";
   metadata->short_name_ = "Batt 3 Temp";
 
-  auto* sensor = new MAX31855Thermocouple(1000);
+  DallasTemperatureSensors* dts = new DallasTemperatureSensors(D7);
+  uint read_delay = 1000;
+
+  auto* sensor = new OneWireTemperature(dts, read_delay, "/Temp/oneWire");
   sensor
     ->connect_to(new Linear(1, 0, "/Temp/LinearTransform"))
     ->connect_to(new SKOutputNumber("electrical.batteries.battery3.temperature", "", metadata));

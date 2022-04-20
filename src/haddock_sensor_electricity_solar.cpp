@@ -13,7 +13,7 @@ auto* current =
   new ADS1x15RawValue (ads1115, channels_0_1, 5000, "/Current/Measurement");
 current
   ->connect_to(new Linear(256.0 / 32768.0, 0, ""))
-  ->connect_to(new Linear(0.57, 0, "/Current/LinearTransform"))
+  ->connect_to(new Linear(0.46, 0, "/Current/LinearTransform"))
   ->connect_to(new SKOutputNumber("electrical.solar.flybridge.current", "/Current/Sk", metadataCurrent));
 
 auto* ina226 = new INA226x(0x40);

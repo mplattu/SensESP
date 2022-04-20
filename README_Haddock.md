@@ -41,19 +41,18 @@ References
 
 ### `temp_engineroom`, `temp_batt1`, `temp_batt2`, `temp_batt3`
 
+The first attempt to measure machine room temperatures was done using MAX31855 and
+thermocouple sensors. However, the sensors got a lot of noise from the machine room
+lightning and had to be abandoned.
+
 Equipment
  * Wemos D1 ESP8266
- * MAX31855
+ * DS18B20
+ * resistor 4,7k
 
 Wiring
-```
-Wemos D1  MAX31855
-     3v3  VCC
-       G  GND
-      D5  D0
-      D6  CS
-      D7  CLK
-```
+
+![See images/sensor_temp_ds18b20.png](images/sensor_temp_ds18b20.png)
 
 Compilation
 

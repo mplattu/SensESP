@@ -4,6 +4,12 @@ build_salon_environment:
 upload_salon_environment:
 	pio run --environment salon_environment -t upload
 
+build_temp_outdoor:
+	pio run --environment temp_outdoor
+
+upload_temp_outdoor:
+	pio run --environment temp_outdoor -t upload
+
 build_temp_engineroom:
 	pio run --environment temp_engineroom
 

@@ -149,6 +149,22 @@ ReactESP app([]() {
     ->connect_to(new SKOutputNumber("environment.inside.pressure", "", metadata_pressure));
 #endif
 
+#ifdef SENSOR_TEMP_OUTDOOR
+  SKMetadata* metadata = new SKMetadata();
+  metadata->units_ = "K";
+  metadata->description_ = "Outdoor Temperature";
+  metadata->display_name_ = "Outdoor Temperature";
+  metadata->short_name_ = "Outdoor Temp";
+
+  DallasTemperatureSensors* dts = new DallasTemperatureSensors(D7);
+  uint read_delay = 1000;
+
+  auto* sensor = new OneWireTemperature(dts, read_delay, "/Temp/oneWire");
+  sensor
+    ->connect_to(new Linear(1, 0, "/Temp/LinearTransform"))
+    ->connect_to(new SKOutputNumber("environment.outside.temperature", "", metadata));
+#endif
+
 #ifdef SENSOR_TEMP_ENGINEROOM
   SKMetadata* metadata = new SKMetadata();
   metadata->units_ = "K";

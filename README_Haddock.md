@@ -39,7 +39,7 @@ References
 
  * https://www.instructables.com/Library-for-BMP280/
 
-### `temp_engineroom`, `temp_batt1`, `temp_batt2`, `temp_batt3`
+### `temp_outdoor`, `temp_engineroom`, `temp_batt1`, `temp_batt2`, `temp_batt3`
 
 The first attempt to measure machine room temperatures was done using MAX31855 and
 thermocouple sensors. However, the sensors got a lot of noise from the machine room

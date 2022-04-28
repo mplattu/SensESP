@@ -1,5 +1,6 @@
 #ifdef HADDOCK_SENSOR_ELECTRICITY_SOLAR_BEEF
 
+/*
 SKMetadata* metadataCurrent = new SKMetadata();
 metadataCurrent->units_ = "A";
 metadataCurrent->description_ = "Solar Panel Charging Current";
@@ -15,6 +16,7 @@ current
   ->connect_to(new Linear(256.0 / 32768.0, 0, ""))
   ->connect_to(new Linear(0.46, 0, "/Current/LinearTransform"))
   ->connect_to(new SKOutputNumber("electrical.solar.flybridge.current", "/Current/Sk", metadataCurrent));
+*/
 
 auto* ina226 = new INA226x(0x40);
 

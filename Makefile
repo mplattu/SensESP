@@ -94,6 +94,12 @@ build_revs_prop_port:
 upload_revs_prop_port:
 	pio run --environment revs_prop_port -t upload
 
+build_level_bilge:
+	pio run --environment level_bilge
+
+upload_level_bilge:
+	pio run --environment level_bilge -t upload
+
 monitor:
 	pio device monitor
 

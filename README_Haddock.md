@@ -207,3 +207,31 @@ Compilation
 Configuration
 
  * `/Freq/Frequency` has default value of 60 as the sensor reports RPMs and hot Hz
+
+### `level_bilge`
+
+Measures bilge level using IR distance sensor. The DYP-A02YY sensor gives distance
+as PWM output.
+
+Equipment
+
+  * Wemos D1 ESP8266
+  * IR distance sensor DYP-A02YY
+
+Wiring
+
+```
+Wemos D1  DYP-A02YY
+--------  ---------
+ 5V        red
+ G         black
+ A0        yellow
+```
+
+Compilation
+
+ * `make upload_level_bilge`
+
+Configuration
+
+ * `/Bilge/Measurement` and `/Bilge/LinearTransform`

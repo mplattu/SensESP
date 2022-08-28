@@ -39,6 +39,11 @@
 #include "transforms/frequency.h"
 #endif
 
+#ifdef HADDOCK_SENSOR_TYPE_PWM_LEVEL
+#include "sensors/pwm_distance_dyp-a02yy.h"
+#include "transforms/linear.h"
+#endif
+
 #include <Arduino.h>
 
 #include "sensesp_app.h"
@@ -338,6 +343,12 @@ ReactESP app([]() {
     ->connect_to(new Frequency(hz_to_rpms, "/Freq/Frequency")) // Hall sensor gives one signal on each round = 1 Hz
     ->connect_to(new SKOutputNumber("propulsion.port.revolutions", "/Freq/Sk", metadata));
 #endif
+
+#ifdef HADDOCK_SENSOR_LEVEL_BILGE
+#define HADDOCK_SENSOR_LEVEL_BILGE_BEEF
+#include "haddock_sensor_level_bilge.cpp"
+#endif
+
 
   // Start the SensESP application running
   sensesp_app->enable();

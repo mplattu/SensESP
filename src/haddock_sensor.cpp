@@ -41,6 +41,7 @@
 
 #ifdef HADDOCK_SENSOR_TYPE_PWM_LEVEL
 #include "sensors/pwm_distance_dyp-a02yy.h"
+#include "transforms/moving_average.h"
 #include "transforms/linear.h"
 #endif
 

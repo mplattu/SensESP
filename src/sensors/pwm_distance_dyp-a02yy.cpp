@@ -3,11 +3,12 @@
 #include "sensesp.h"
 
 PwmDistanceDypa02yy::PwmDistanceDypa02yy(int8_t input_pin,
-                                       uint read_delay, String config_path)
+                                       uint read_delay, int16_t bilge_zero_level, String config_path)
     : NumericSensor(config_path),
       input_pin{input_pin},
       read_delay{read_delay} {
   this->read_delay = read_delay;
+  this->bilge_zero_level = bilge_zero_level;
   this->input_pin = input_pin;
   pinMode(this->input_pin, INPUT);
   load_configuration();

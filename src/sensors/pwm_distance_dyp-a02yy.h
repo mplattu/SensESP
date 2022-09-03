@@ -18,6 +18,7 @@ class PwmDistanceDypa02yy : public NumericSensor {
   PwmDistanceDypa02yy(
     int8_t input_pin = A0,
     uint read_delay = 1000,
+    int16_t bilge_zero_level = 0,
     String config_path = ""
   );
   void enable() override final;

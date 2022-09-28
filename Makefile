@@ -34,11 +34,11 @@ build_temp_batt3:
 upload_temp_batt3:
 	pio run --environment temp_batt3 -t upload
 
-build_current_consumption:
-	pio run --environment current_consumption
+build_electricity_consumption:
+	pio run --environment electricity_consumption
 
-upload_current_consumption:
-	pio run --environment current_consumption -t upload
+upload_electricity_consumption:
+	pio run --environment electricity_consumption -t upload
 
 build_electricity_solar:
 	pio run --environment electricity_solar

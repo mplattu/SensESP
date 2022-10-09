@@ -97,64 +97,41 @@ Configuration
   * 0,57 for 75mV shunt (default)
   * 2.0 for 50mV shunt
 
-### `electricity_solar`, `electricity_batt1`, `electricity_batt2`, `electricity_batt3`
+### `electricity_consumption`, `electricity_batt1`, `electricity_batt2`, `electricity_batt3`
 
-Electricity sensor measures voltage using INA226 (0-32V) and current using ADS1115 and 75mV shunt.
+Electricity sensor measures voltage and using INA226 (0-32V). [A special version of
+INA226](https://www.aliexpress.com/item/1005002877920242.html) with internal shunt capable of 20A current was used to avoid external shunt.
 
 Equipment
 
  * Wemos D1 ESP8266
  * INA226
- * ADS1115 AD converter
- * Shunt 40A 75mV
 
 Wiring
 
 ```
-Wemos D1  ADS1115  INA226
---------  -------  ------
-      5v  VCC      VCC
-       G  GND      GND
-       G  ADDR
-      D1  SCL      SCL
-      D2  SDA      SDA
-      A0  shunt
-      A1  shunt
+Wemos D1  INA226
+--------  ------
+      5v  VCC
+       G  GND
+      D1  SCL
+      D2  SDA
 ```
 
 ![See images/sensor_electricity.png](images/sensor_electricity.png)
 
-N.B.! Use INA229 instead of INA219 for 24V system.
+N.B.! The ADS1115 was not used.
 
 Compilation
 
- * `make upload_electricity_solar`
+ * `make upload_electricity_consumption`
  * `make upload_electricity_batt1`
  * `make upload_electricity_batt2`
  * `make upload_electricity_batt3`
 
 Configuration
 
- * Both voltage and current sensor has linear transform
- * Adjust current transform line parameters at `Current/LinearTransform`
- * The theoretical multipliers are:
-   * 1.0 for 100mV shunt
-   * 0,57 for 75mV shunt (default)
-   * 2.0 for 50mV shunt
-
-References
-
-* Converting raw measurements to volts: https://forums.adafruit.com/viewtopic.php?t=73330
-  ```
-                                                   ADS1015  ADS1115
-                                                   -------  -------
-  GAIN_TWOTHIRDS  // 2/3x gain +/- 6.144V  1 bit = 3mV      0.1875mV
-  GAIN_ONE        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
-  GAIN_TWO        // 2x gain   +/- 2.048V  1 bit = 1mV      0.0625mV
-  GAIN_FOUR       // 4x gain   +/- 1.024V  1 bit = 0.5mV    0.03125mV
-  GAIN_EIGHT      // 8x gain   +/- 0.512V  1 bit = 0.25mV   0.015625mV
-  GAIN_SIXTEEN    // 16x gain  +/- 0.256V  1 bit = 0.125mV  0.0078125mV
-  ```
+ * Both voltage and current measurement has a linear transform
 
 ### `tank_fuel`, `tank_fresh` and `tank_black`
 

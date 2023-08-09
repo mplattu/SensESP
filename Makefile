@@ -34,11 +34,11 @@ build_temp_batt3:
 upload_temp_batt3:
 	pio run --environment temp_batt3 -t upload
 
-build_electricity_consumption:
-	pio run --environment electricity_consumption
+build_electricity_consumption_ina226:
+	pio run --environment electricity_consumption_ina226
 
-upload_electricity_consumption:
-	pio run --environment electricity_consumption -t upload
+upload_electricity_consumption_ina226:
+	pio run --environment electricity_consumption_ina226 -t upload
 
 build_electricity_solar:
 	pio run --environment electricity_solar
@@ -46,23 +46,23 @@ build_electricity_solar:
 upload_electricity_solar:
 	pio run --environment electricity_solar -t upload
 
-build_electricity_batt1:
-	pio run --environment electricity_batt1
+build_electricity_batt1_ina226:
+	pio run --environment electricity_batt1_ina226
 
-upload_electricity_batt1:
-	pio run --environment electricity_batt1 -t upload
+upload_electricity_batt1_ina226:
+	pio run --environment electricity_batt1_ina226 -t upload
 
-build_electricity_batt2:
-	pio run --environment electricity_batt2
+build_electricity_batt2_ina226:
+	pio run --environment electricity_batt2_ina226
 
-upload_electricity_batt2:
+upload_electricity_batt2_ina226:
 	pio run --environment electricity_batt2 -t upload
 
-build_electricity_batt3:
-	pio run --environment electricity_batt3
+build_electricity_batt3_ina226:
+	pio run --environment electricity_batt3_ina226
 
-upload_electricity_batt3:
-	pio run --environment electricity_batt3 -t upload
+upload_electricity_batt3_ina226:
+	pio run --environment electricity_batt3_ina226 -t upload
 
 build_tank_fuel:
 	pio run --environment tank_fuel

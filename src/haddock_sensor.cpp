@@ -22,7 +22,7 @@
 #include "transforms/linear.h"
 #endif
 
-#ifdef HADDOCK_SENSOR_TYPE_ELECTRICITY
+#ifdef HADDOCK_SENSOR_TYPE_ELECTRICITY_INA226
 #include "sensors/ina226.h"
 #include "transforms/linear.h"
 #endif
@@ -234,29 +234,29 @@ ReactESP app([]() {
     ->connect_to(new SKOutputNumber("electrical.batteries.battery3.temperature", "", metadata));
 #endif
 
-#ifdef HADDOCK_SENSOR_ELECTRICITY_CONSUMPTION
-#define HADDOCK_SENSOR_ELECTRICITY_CONSUMPTION_BEEF
-#include "haddock_sensor_electricity_consumption.cpp"
+#ifdef HADDOCK_SENSOR_ELECTRICITY_CONSUMPTION_INA226
+#define HADDOCK_SENSOR_ELECTRICITY_CONSUMPTION_INA226_BEEF
+#include "haddock_sensor_electricity_consumption_ina226.cpp"
 #endif
 
 #ifdef HADDOCK_SENSOR_ELECTRICITY_SOLAR
 #define HADDOCK_SENSOR_ELECTRICITY_SOLAR_BEEF
-#include "haddock_sensor_electricity_solar.cpp"
+#include "haddock_sensor_electricity_solar_ina226.cpp"
 #endif
 
-#ifdef HADDOCK_SENSOR_ELECTRICITY_BATT1
-#define HADDOCK_SENSOR_ELECTRICITY_BATT1_BEEF
-#include "haddock_sensor_electricity_batt1.cpp"
+#ifdef HADDOCK_SENSOR_ELECTRICITY_BATT1_INA226
+#define HADDOCK_SENSOR_ELECTRICITY_BATT1_INA226_BEEF
+#include "haddock_sensor_electricity_batt1_ina226.cpp"
 #endif
 
-#ifdef HADDOCK_SENSOR_ELECTRICITY_BATT2
-#define HADDOCK_SENSOR_ELECTRICITY_BATT2_BEEF
-#include "haddock_sensor_electricity_batt2.cpp"
+#ifdef HADDOCK_SENSOR_ELECTRICITY_BATT2_INA226
+#define HADDOCK_SENSOR_ELECTRICITY_BATT2_INA226_BEEF
+#include "haddock_sensor_electricity_batt2_ina226.cpp"
 #endif
 
-#ifdef HADDOCK_SENSOR_ELECTRICITY_BATT3
-#define HADDOCK_SENSOR_ELECTRICITY_BATT3_BEEF
-#include "haddock_sensor_electricity_batt3.cpp"
+#ifdef HADDOCK_SENSOR_ELECTRICITY_BATT3_INA226
+#define HADDOCK_SENSOR_ELECTRICITY_BATT3_INA226_BEEF
+#include "haddock_sensor_electricity_batt3_ina226.cpp"
 #endif
 
 #ifdef HADDOCK_SENSOR_TANK_FUEL

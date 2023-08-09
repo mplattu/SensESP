@@ -97,7 +97,29 @@ Configuration
   * 0,57 for 75mV shunt (default)
   * 2.0 for 50mV shunt
 
-### `electricity_consumption`, `electricity_batt1`, `electricity_batt2`, `electricity_batt3`
+### `electricity_batt1`, `electricity_batt2`, `electricity_batt3`
+
+Voltage and current sensor based on [Peacefair PZEM-017](http://en.peacefair.cn/products/610.html) with 200A/75mV shunt.
+
+Equipment
+
+ * Wemos D1 ESP8266
+ * Peacefair PZEM-017
+ * 200A/75mV shunt
+ * MAX3485
+ * 120 ohm resistor
+
+Wiring
+
+![See images/esp8266_pzem017.png](images/esp8266_pzem017.png)
+
+* [Fritzing file](pcb-haddock/esp8266_pzem017.fzz)
+
+Compilation
+
+ * make 
+
+### Obsolete (INA226): `electricity_consumption_ina226`, `electricity_batt1_ina226`, `electricity_batt2_ina226`, `electricity_batt3_ina226`
 
 Electricity sensor measures voltage and using INA226 (0-32V). [A special version of
 INA226](https://www.aliexpress.com/item/1005002877920242.html) with internal shunt capable of 20A current was used to avoid external shunt.
@@ -118,16 +140,16 @@ Wemos D1  INA226
       D2  SDA
 ```
 
-![See images/sensor_electricity.png](images/sensor_electricity.png)
+![See images/sensor_electricity_ina226.png](images/sensor_electricity_ina226.png)
 
 N.B.! The ADS1115 was not used.
 
 Compilation
 
- * `make upload_electricity_consumption`
- * `make upload_electricity_batt1`
- * `make upload_electricity_batt2`
- * `make upload_electricity_batt3`
+ * `make upload_electricity_consumption_ina226`
+ * `make upload_electricity_batt1_ina226`
+ * `make upload_electricity_batt2_ina226`
+ * `make upload_electricity_batt3_ina226`
 
 Configuration
 
